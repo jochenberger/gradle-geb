@@ -1,0 +1,11 @@
+apply plugin: 'groovy'
+apply plugin: 'maven'
+apply plugin: 'eclipse'
+
+group = 'com.github.jochenberger'
+version = '0.0.1-SNAPSHOT'
+
+dependencies {
+    compile gradleApi()
+    groovy localGroovy()
+}
