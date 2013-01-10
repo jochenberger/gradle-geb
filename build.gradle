@@ -4,6 +4,7 @@ apply plugin: 'eclipse'
 
 group = 'com.github.jochenberger'
 version = '0.0.1-SNAPSHOT'
+archivesBaseName = 'gradle-geb'
 
 dependencies {
     compile gradleApi()
