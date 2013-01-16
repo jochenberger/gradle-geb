@@ -1,12 +1,12 @@
 package com.github.jochenberger.gradlegeb
 
+import groovy.io.FileType
+
 import org.gradle.api.Plugin
 import org.gradle.api.Project
 import org.gradle.api.Task
 import org.gradle.api.plugins.jetty.JettyRun
 import org.gradle.api.tasks.testing.Test
-
-import com.github.jochenberger.gradlegeb.GebPlugin;
 
 class GebPlugin implements Plugin<Project>{
 
@@ -41,6 +41,20 @@ class GebPlugin implements Plugin<Project>{
 			systemProperty "spock.configuration", spockConfig.absolutePath
 		}
 
+		Closure removeEmptyResults = {
+			logger.debug "Analyzing results in $testResultsDir"
+			testResultsDir.eachFileMatch FileType.FILES, ~/.*\.xml/, {
+				logger.debug "Analyzing $it"
+				int numberOfTests = new XmlSlurper().parse(it).@tests.text() as int
+				if (numberOfTests == 0){
+					logger.debug "$it is empty"
+					it.delete()
+				}else{
+					logger.debug "$it has $numberOfTests test results"
+				}
+			}
+		}
+
 		drivers.each { String d ->
 
 			Task t = p.task([type: Test, description: "Run Selenium tests with $d", group: "Test"], "${d}Test").doFirst {
@@ -50,6 +64,8 @@ class GebPlugin implements Plugin<Project>{
 				systemProperty "spock.configuration", spockConfig.absolutePath
 				systemProperty "geb.env", d
 				systemProperty "geb.build.baseUrl", "http://localhost:${p.tasks.jettyTest.httpPort}/${p.tasks.jettyTest.contextPath}/"
+				testResultsDir p.file("${p.buildDir}/${d}test-results")
+				testReportDir p.file("${p.reporting.baseDir}/${d}tests")
 			}
 
 			t.doFirst {
@@ -57,6 +73,7 @@ class GebPlugin implements Plugin<Project>{
 				p.tasks.jettyTest.execute();
 			}
 
+			t.doLast removeEmptyResults
 			//t.inputs.files p.tasks.test.inputs.files
 			//t.outputs.files p.tasks.test.outputs.files
 
@@ -64,6 +81,7 @@ class GebPlugin implements Plugin<Project>{
 				p.tasks.test.dependsOn(t)
 			}
 		}
+		p.tasks.test.doLast removeEmptyResults
 		// TODO shut-down jetty after tests
 
 		//		p.tasks.test.doLast {

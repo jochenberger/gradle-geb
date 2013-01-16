@@ -3,7 +3,8 @@ gradle-geb
 
 Gradle plugin for UI tests with [geb](http://www.gebish.org/) and [spock](http://code.google.com/p/spock/)
 
-Adds tasks for geb-based UI tests to a gradle project.
+Adds tasks for geb-based UI tests to a gradle project.  
+Currently, the plugin should work with gradle 1.3.
 
 ## What it should do
 Eventually, the plugin should be able to analyze the tests in the project. For the non-UI tests, everything should stay like it is, they should be run by the default `gradle test` task.  
@@ -16,7 +17,7 @@ When `gradle test` is run, the non-UI tests should be run as usual, for the UI t
 * Lacks tests
 * Lacks license headers
 * Does not specify test inputs/outputs, so tests are always out-of-date
-* The test results of the latest test task overwrite the previous results (see also http://forums.gradle.org/gradle/topics/how_can_i_specify_test_classes_filtered_by_whether_they_extend_a_certain_base_class), I tried to get around that by using different spock configs, but without success.
+* Spock configs are used to run only the UI tests in the UI test tasks and the non-UI tests in the regular test task. The test reports for the different tasks are generated with empty reports for the excluded tests (see also http://forums.gradle.org/gradle/topics/how_can_i_specify_test_classes_filtered_by_whether_they_extend_a_certain_base_class),
 * Jetty is not explicitly shut down after running the tests, I'm not sure if this is an issue. If it is, we could define a stop port and key for the `jettyTest` task and use those to shut down the container.
 
 ## Licensing
