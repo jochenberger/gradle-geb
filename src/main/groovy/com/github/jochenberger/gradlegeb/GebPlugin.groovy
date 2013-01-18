@@ -11,7 +11,7 @@ import org.gradle.api.tasks.testing.Test
 class GebPlugin implements Plugin<Project>{
 
 	def gebVersion = "0.9.0-RC-1"
-	def seleniumVersion = "2.28.0"
+	def seleniumVersion = "2.29.0"
 	def spockVersion = "0.7-groovy-2.0"
 	def groovyVersion = "2.0.5"
 
