@@ -13,7 +13,7 @@ class GebPlugin implements Plugin<Project>{
 	def gebVersion = "0.9.0-RC-1"
 	def seleniumVersion = "2.29.0"
 	def spockVersion = "0.7-groovy-2.0"
-	def groovyVersion = "2.0.5"
+	def groovyVersion = "2.0.6"
 
 	def drivers = ["firefox", "chrome"]
 
@@ -35,8 +35,7 @@ class GebPlugin implements Plugin<Project>{
 
 		p.task([type: JettyRun, description: "Starts a Jetty server", group: "Check"], "jettyTest")
 		p.tasks.test.doFirst {
-			//TODO check if gradle supports this out of the box
-			File spockConfig = File.createTempFile("spockconfig", "groovy")
+			File spockConfig = File.createTempFile("spockconfig", ".groovy", temporaryDir)
 			spockConfig.text = GebPlugin.class.getResourceAsStream("SpockConfig.groovy").text
 			systemProperty "spock.configuration", spockConfig.absolutePath
 		}
@@ -58,8 +57,7 @@ class GebPlugin implements Plugin<Project>{
 		drivers.each { String d ->
 
 			Task t = p.task([type: Test, description: "Run Selenium tests with $d", group: "Test"], "${d}Test").doFirst {
-				//TODO check if gradle supports this out of the box
-				File spockConfig = File.createTempFile("spockconfig", "groovy")
+				File spockConfig = File.createTempFile("spockconfig", ".groovy", temporaryDir)
 				spockConfig.text = GebPlugin.class.getResourceAsStream("SpockConfigUI.groovy").text
 				systemProperty "spock.configuration", spockConfig.absolutePath
 				systemProperty "geb.env", d

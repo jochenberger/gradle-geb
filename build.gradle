@@ -3,7 +3,7 @@ apply plugin: 'maven'
 apply plugin: 'eclipse'
 
 group = 'com.github.jochenberger'
-version = '0.0.3-SNAPSHOT'
+version = '0.0.4-SNAPSHOT'
 archivesBaseName = 'gradle-geb'
 
 dependencies {
