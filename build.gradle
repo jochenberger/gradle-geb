@@ -3,10 +3,14 @@ apply plugin: 'maven'
 apply plugin: 'eclipse'
 
 group = 'com.github.jochenberger'
-version = '0.0.5-SNAPSHOT'
+version = '0.0.6-SNAPSHOT'
 archivesBaseName = 'gradle-geb'
 
 dependencies {
     compile gradleApi()
     groovy localGroovy()
+}
+
+task wrapper(type: Wrapper){
+	gradleVersion = '1.4'
 }

@@ -24,7 +24,7 @@ class GebPlugin implements Plugin<Project>{
 		p.apply plugin: 'groovy'
 
 		p.dependencies.add("testCompile", "org.gebish:geb-spock:$gebVersion")
-		p.dependencies.add("groovy", "org.codehaus.groovy:groovy-all:$groovyVersion")
+		p.dependencies.add("testCompile", "org.codehaus.groovy:groovy-all:$groovyVersion")
 
 		p.dependencies.add("testCompile", "org.spockframework:spock-core:$spockVersion")
 		drivers.each {
