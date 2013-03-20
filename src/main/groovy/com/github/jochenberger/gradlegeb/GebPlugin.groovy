@@ -13,7 +13,7 @@ class GebPlugin implements Plugin<Project>{
 	def gebVersion = "0.9.0-RC-1"
 	def seleniumVersion = "2.31.0"
 	def spockVersion = "0.7-groovy-2.0"
-	def groovyVersion = "2.1.1"
+	def groovyVersion = "2.1.2"
 
 	def drivers = ["firefox", "chrome"]
 
