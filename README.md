@@ -4,7 +4,7 @@ gradle-geb
 Gradle plugin for UI tests with [geb](http://www.gebish.org/) and [spock](http://code.google.com/p/spock/)
 
 Adds tasks for geb-based UI tests to a gradle project.  
-Currently, the plugin should work with gradle 1.5.
+Currently, the plugin should work with gradle 1.6.
 
 ## What it should do
 Eventually, the plugin should be able to analyze the tests in the project. For the non-UI tests, everything should stay like it is, they should be run by the default `gradle test` task.  
